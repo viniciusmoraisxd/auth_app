@@ -21,13 +21,20 @@ abstract class FirebaseAuthClient {
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
 
 void main() {
+  late FirebaseAuthClientSpy firebaseAuthClientSpy;
+  late RemoteSignIn sut;
+
+  late String email;
+  late String password;
+
+  setUp(() {
+    firebaseAuthClientSpy = FirebaseAuthClientSpy();
+    sut = RemoteSignIn(firebaseAuthClient: firebaseAuthClientSpy);
+    email = faker.internet.email();
+    password = faker.internet.password();
+  });
+
   test('Should call FirebaseAuthClient with correct values', () async {
-    final firebaseAuthClientSpy = FirebaseAuthClientSpy();
-    final sut = RemoteSignIn(firebaseAuthClient: firebaseAuthClientSpy);
-
-    final email = faker.internet.email();
-    final password = faker.internet.password();
-
     await sut.signin(email: email, password: password);
 
     verify(
