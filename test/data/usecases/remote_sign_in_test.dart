@@ -21,6 +21,8 @@ class RemoteSignIn {
           throw DomainError.userNotFound;
         case FirebaseError.invalidEmail:
           throw DomainError.invalidCredentials;
+        case FirebaseError.wrongPassword:
+          throw DomainError.invalidCredentials;
       }
     }
   }
@@ -33,7 +35,7 @@ abstract class FirebaseAuthClient {
 
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
 
-enum FirebaseError { userDisabled, userNotFound, invalidEmail }
+enum FirebaseError { userDisabled, userNotFound, invalidEmail, wrongPassword }
 
 void main() {
   late FirebaseAuthClientSpy firebaseAuthClientSpy;
@@ -89,6 +91,16 @@ void main() {
       'Should throw InvalidCredentialsError if FirebaseAuthClient throws invalid-email',
       () async {
     mockFirebaseRequestError(FirebaseError.invalidEmail);
+
+    final future = sut.signin(email: email, password: password);
+
+    expect(future, throwsA(DomainError.invalidCredentials));
+  });
+
+  test(
+      'Should throw InvalidCredentialsError if FirebaseAuthClient throws wrong-password',
+      () async {
+    mockFirebaseRequestError(FirebaseError.wrongPassword);
 
     final future = sut.signin(email: email, password: password);
 
