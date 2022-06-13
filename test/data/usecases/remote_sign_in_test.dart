@@ -46,6 +46,13 @@ void main() {
     password = faker.internet.password();
   });
 
+  When mockFirebaseRequest() => when(
+        () => firebaseAuthClientSpy.signInWithEmailAndPassword(
+            email: any(named: "email"), password: any(named: "password")),
+      );
+
+  void mockFirebaseRequestError(FirebaseError error) =>
+      mockFirebaseRequest().thenThrow(error);
   test('Should call FirebaseAuthClient with correct values', () async {
     await sut.signin(email: email, password: password);
 
@@ -58,10 +65,7 @@ void main() {
   test(
       'Should throw UserDisabledError if FirebaseAuthClient throws user-disabled',
       () async {
-    when(
-      () => firebaseAuthClientSpy.signInWithEmailAndPassword(
-          email: any(named: "email"), password: any(named: "password")),
-    ).thenThrow(FirebaseError.userDisabled);
+    mockFirebaseRequestError(FirebaseError.userDisabled);
 
     final future = sut.signin(email: email, password: password);
 
@@ -71,10 +75,7 @@ void main() {
   test(
       'Should throw UserNotFoundError if FirebaseAuthClient throws user-not-found',
       () async {
-    when(
-      () => firebaseAuthClientSpy.signInWithEmailAndPassword(
-          email: any(named: "email"), password: any(named: "password")),
-    ).thenThrow(FirebaseError.userNotFound);
+    mockFirebaseRequestError(FirebaseError.userNotFound);
 
     final future = sut.signin(email: email, password: password);
 
