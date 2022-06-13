@@ -20,7 +20,7 @@ class RemoteSignIn {
         case FirebaseError.userNotFound:
           throw DomainError.userNotFound;
         case FirebaseError.invalidEmail:
-          throw DomainError.invalidEmail;
+          throw DomainError.invalidCredentials;
       }
     }
   }
@@ -86,12 +86,12 @@ void main() {
   });
 
   test(
-      'Should throw EmailInvalidError if FirebaseAuthClient throws invalid-email',
+      'Should throw InvalidCredentialsError if FirebaseAuthClient throws invalid-email',
       () async {
     mockFirebaseRequestError(FirebaseError.invalidEmail);
 
     final future = sut.signin(email: email, password: password);
 
-    expect(future, throwsA(DomainError.invalidEmail));
+    expect(future, throwsA(DomainError.invalidCredentials));
   });
 }
