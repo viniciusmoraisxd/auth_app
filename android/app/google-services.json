@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "283509147750",
+    "project_id": "authdb-e98a6",
+    "storage_bucket": "authdb-e98a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283509147750:android:d86fb3c9adfaf25bff85a7",
+        "android_client_info": {
+          "package_name": "com.viniciusmorais.auth_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283509147750-a6ltal83g3av4cl9cc2lioni5p8q50ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-dxIqUCva3FHFwxIC91QaeAZBESNCeZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283509147750-a6ltal83g3av4cl9cc2lioni5p8q50ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
