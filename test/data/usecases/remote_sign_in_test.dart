@@ -19,6 +19,8 @@ class RemoteSignIn {
           throw DomainError.userDisabled;
         case FirebaseError.userNotFound:
           throw DomainError.userNotFound;
+        case FirebaseError.invalidEmail:
+          throw DomainError.invalidEmail;
       }
     }
   }
@@ -31,20 +33,13 @@ abstract class FirebaseAuthClient {
 
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
 
-enum FirebaseError { userDisabled, userNotFound }
+enum FirebaseError { userDisabled, userNotFound, invalidEmail }
 
 void main() {
   late FirebaseAuthClientSpy firebaseAuthClientSpy;
   late RemoteSignIn sut;
   late String email;
   late String password;
-
-  setUp(() {
-    firebaseAuthClientSpy = FirebaseAuthClientSpy();
-    sut = RemoteSignIn(firebaseAuthClient: firebaseAuthClientSpy);
-    email = faker.internet.email();
-    password = faker.internet.password();
-  });
 
   When mockFirebaseRequest() => when(
         () => firebaseAuthClientSpy.signInWithEmailAndPassword(
@@ -53,6 +48,14 @@ void main() {
 
   void mockFirebaseRequestError(FirebaseError error) =>
       mockFirebaseRequest().thenThrow(error);
+
+  setUp(() {
+    firebaseAuthClientSpy = FirebaseAuthClientSpy();
+    sut = RemoteSignIn(firebaseAuthClient: firebaseAuthClientSpy);
+    email = faker.internet.email();
+    password = faker.internet.password();
+  });
+
   test('Should call FirebaseAuthClient with correct values', () async {
     await sut.signin(email: email, password: password);
 
@@ -80,5 +83,15 @@ void main() {
     final future = sut.signin(email: email, password: password);
 
     expect(future, throwsA(DomainError.userNotFound));
+  });
+
+  test(
+      'Should throw EmailInvalidError if FirebaseAuthClient throws invalid-email',
+      () async {
+    mockFirebaseRequestError(FirebaseError.invalidEmail);
+
+    final future = sut.signin(email: email, password: password);
+
+    expect(future, throwsA(DomainError.invalidEmail));
   });
 }
