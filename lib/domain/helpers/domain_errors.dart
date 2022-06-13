@@ -4,5 +4,6 @@ enum DomainError {
   invalidEmail,
   emailInUse,
   accessDenied,
-  userDisabled
+  userDisabled,
+  userNotFound
 }

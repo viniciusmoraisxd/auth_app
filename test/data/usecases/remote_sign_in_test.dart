@@ -1,5 +1,6 @@
 import 'package:auth_app/domain/helpers/domain_errors.dart';
 import 'package:faker/faker.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -12,8 +13,13 @@ class RemoteSignIn {
     try {
       await firebaseAuthClient.signInWithEmailAndPassword(
           email: email, password: password);
-    } catch (e) {
-      throw DomainError.userDisabled;
+    } on FirebaseError catch (e) {
+      switch (e) {
+        case FirebaseError.userDisabled:
+          throw DomainError.userDisabled;
+        case FirebaseError.userNotFound:
+          throw DomainError.userNotFound;
+      }
     }
   }
 }
@@ -25,9 +31,7 @@ abstract class FirebaseAuthClient {
 
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
 
-enum FirebaseError {
-  userDisabled,
-}
+enum FirebaseError { userDisabled, userNotFound }
 
 void main() {
   late FirebaseAuthClientSpy firebaseAuthClientSpy;
@@ -62,5 +66,18 @@ void main() {
     final future = sut.signin(email: email, password: password);
 
     expect(future, throwsA(DomainError.userDisabled));
+  });
+
+  test(
+      'Should throw UserNotFoundError if FirebaseAuthClient throws user-not-found',
+      () async {
+    when(
+      () => firebaseAuthClientSpy.signInWithEmailAndPassword(
+          email: any(named: "email"), password: any(named: "password")),
+    ).thenThrow(FirebaseError.userNotFound);
+
+    final future = sut.signin(email: email, password: password);
+
+    expect(future, throwsA(DomainError.userNotFound));
   });
 }
