@@ -1,41 +1,11 @@
-import 'package:auth_app/domain/helpers/domain_errors.dart';
-import 'package:faker/faker.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
-class RemoteSignIn {
-  final FirebaseAuthClient firebaseAuthClient;
-
-  RemoteSignIn({required this.firebaseAuthClient});
-
-  Future signin({required String email, required String password}) async {
-    try {
-      await firebaseAuthClient.signInWithEmailAndPassword(
-          email: email, password: password);
-    } on FirebaseError catch (e) {
-      switch (e) {
-        case FirebaseError.userDisabled:
-          throw DomainError.userDisabled;
-        case FirebaseError.userNotFound:
-          throw DomainError.userNotFound;
-        case FirebaseError.invalidEmail:
-          throw DomainError.invalidCredentials;
-        case FirebaseError.wrongPassword:
-          throw DomainError.invalidCredentials;
-      }
-    }
-  }
-}
-
-abstract class FirebaseAuthClient {
-  Future<dynamic>? signInWithEmailAndPassword(
-      {required String email, required String password});
-}
+import 'package:auth_app/data/firebase/firebase.dart';
+import 'package:auth_app/data/usecases/usecases.dart';
+import 'package:auth_app/domain/helpers/helpers.dart';
+import 'package:faker/faker.dart';
 
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
-
-enum FirebaseError { userDisabled, userNotFound, invalidEmail, wrongPassword }
 
 void main() {
   late FirebaseAuthClientSpy firebaseAuthClientSpy;
@@ -48,7 +18,7 @@ void main() {
             email: any(named: "email"), password: any(named: "password")),
       );
 
-  void mockFirebaseRequestError(FirebaseError error) =>
+  void mockFirebaseRequestError(FirebaseAuthError error) =>
       mockFirebaseRequest().thenThrow(error);
 
   setUp(() {
@@ -70,7 +40,7 @@ void main() {
   test(
       'Should throw UserDisabledError if FirebaseAuthClient throws user-disabled',
       () async {
-    mockFirebaseRequestError(FirebaseError.userDisabled);
+    mockFirebaseRequestError(FirebaseAuthError.userDisabled);
 
     final future = sut.signin(email: email, password: password);
 
@@ -80,7 +50,7 @@ void main() {
   test(
       'Should throw UserNotFoundError if FirebaseAuthClient throws user-not-found',
       () async {
-    mockFirebaseRequestError(FirebaseError.userNotFound);
+    mockFirebaseRequestError(FirebaseAuthError.userNotFound);
 
     final future = sut.signin(email: email, password: password);
 
@@ -90,7 +60,7 @@ void main() {
   test(
       'Should throw InvalidCredentialsError if FirebaseAuthClient throws invalid-email',
       () async {
-    mockFirebaseRequestError(FirebaseError.invalidEmail);
+    mockFirebaseRequestError(FirebaseAuthError.invalidEmail);
 
     final future = sut.signin(email: email, password: password);
 
@@ -100,7 +70,7 @@ void main() {
   test(
       'Should throw InvalidCredentialsError if FirebaseAuthClient throws wrong-password',
       () async {
-    mockFirebaseRequestError(FirebaseError.wrongPassword);
+    mockFirebaseRequestError(FirebaseAuthError.wrongPassword);
 
     final future = sut.signin(email: email, password: password);
 
