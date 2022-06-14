@@ -25,4 +25,11 @@ class FirebaseAuthAdapter implements FirebaseAuthClient {
       }
     }
   }
+
+  @override
+  Future<void> createUserWithEmailAndPassword(
+      {required String email, required String password}) {
+    // TODO: implement createUserWithEmailAndPassword
+    throw UnimplementedError();
+  }
 }
