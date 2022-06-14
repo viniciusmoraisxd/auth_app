@@ -15,21 +15,18 @@ class FirebaseAuthAdapter implements FirebaseAuthClient {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "user-disabled":
-          throw FirebaseAuthError.userDisabled;
+          throw FirebaseSignInError.userDisabled;
         case "user-not-found":
-          throw FirebaseAuthError.userNotFound;
+          throw FirebaseSignInError.userNotFound;
         case "invalid-email":
-          throw FirebaseAuthError.invalidEmail;
+          throw FirebaseSignInError.invalidEmail;
         case "wrong-password":
-          throw FirebaseAuthError.wrongPassword;
+          throw FirebaseSignInError.wrongPassword;
       }
     }
   }
 
   @override
   Future<void> createUserWithEmailAndPassword(
-      {required String email, required String password}) {
-    // TODO: implement createUserWithEmailAndPassword
-    throw UnimplementedError();
-  }
+      {required String email, required String password}) async {}
 }

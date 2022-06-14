@@ -13,15 +13,15 @@ class RemoteSignIn implements SignIn{
     try {
       await firebaseAuthClient.signInWithEmailAndPassword(
           email: email, password: password);
-    } on FirebaseAuthError catch (e) {
+    } on FirebaseSignInError catch (e) {
       switch (e) {
-        case FirebaseAuthError.userDisabled:
+        case FirebaseSignInError.userDisabled:
           throw DomainError.userDisabled;
-        case FirebaseAuthError.userNotFound:
+        case FirebaseSignInError.userNotFound:
           throw DomainError.userNotFound;
-        case FirebaseAuthError.invalidEmail:
+        case FirebaseSignInError.invalidEmail:
           throw DomainError.invalidCredentials;
-        case FirebaseAuthError.wrongPassword:
+        case FirebaseSignInError.wrongPassword:
           throw DomainError.invalidCredentials;
       }
     }

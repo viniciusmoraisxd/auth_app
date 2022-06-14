@@ -1,4 +1,4 @@
-import 'package:auth_app/data/firebase/firebase_auth_error.dart';
+import 'package:auth_app/data/firebase/firebase_sign_in_error.dart';
 import 'package:auth_app/infra/firebase/firebase.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -36,7 +36,7 @@ Future<void> main() async {
     final future =
         sut.signInWithEmailAndPassword(email: email, password: password);
 
-    expect(future, throwsA(FirebaseAuthError.userDisabled));
+    expect(future, throwsA(FirebaseSignInError.userDisabled));
   });
 
   test(
@@ -47,7 +47,7 @@ Future<void> main() async {
     final future =
         sut.signInWithEmailAndPassword(email: email, password: password);
 
-    expect(future, throwsA(FirebaseAuthError.userNotFound));
+    expect(future, throwsA(FirebaseSignInError.userNotFound));
   });
 
   test(
@@ -58,7 +58,7 @@ Future<void> main() async {
     final future =
         sut.signInWithEmailAndPassword(email: email, password: password);
 
-    expect(future, throwsA(FirebaseAuthError.invalidEmail));
+    expect(future, throwsA(FirebaseSignInError.invalidEmail));
   });
 
   test(
@@ -69,6 +69,6 @@ Future<void> main() async {
     final future =
         sut.signInWithEmailAndPassword(email: email, password: password);
 
-    expect(future, throwsA(FirebaseAuthError.wrongPassword));
+    expect(future, throwsA(FirebaseSignInError.wrongPassword));
   });
 }

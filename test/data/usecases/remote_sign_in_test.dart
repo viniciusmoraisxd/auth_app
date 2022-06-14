@@ -18,7 +18,7 @@ void main() {
             email: any(named: "email"), password: any(named: "password")),
       );
 
-  void mockFirebaseRequestError(FirebaseAuthError error) =>
+  void mockFirebaseRequestError(FirebaseSignInError error) =>
       mockFirebaseRequest().thenThrow(error);
 
   setUp(() {
@@ -44,7 +44,7 @@ void main() {
   test(
       'Should throw UserDisabledError if FirebaseAuthClient throws user-disabled',
       () async {
-    mockFirebaseRequestError(FirebaseAuthError.userDisabled);
+    mockFirebaseRequestError(FirebaseSignInError.userDisabled);
 
     final future = sut.signin(email: email, password: password);
 
@@ -54,7 +54,7 @@ void main() {
   test(
       'Should throw UserNotFoundError if FirebaseAuthClient throws user-not-found',
       () async {
-    mockFirebaseRequestError(FirebaseAuthError.userNotFound);
+    mockFirebaseRequestError(FirebaseSignInError.userNotFound);
 
     final future = sut.signin(email: email, password: password);
 
@@ -64,7 +64,7 @@ void main() {
   test(
       'Should throw InvalidCredentialsError if FirebaseAuthClient throws invalid-email',
       () async {
-    mockFirebaseRequestError(FirebaseAuthError.invalidEmail);
+    mockFirebaseRequestError(FirebaseSignInError.invalidEmail);
 
     final future = sut.signin(email: email, password: password);
 
@@ -74,7 +74,7 @@ void main() {
   test(
       'Should throw InvalidCredentialsError if FirebaseAuthClient throws wrong-password',
       () async {
-    mockFirebaseRequestError(FirebaseAuthError.wrongPassword);
+    mockFirebaseRequestError(FirebaseSignInError.wrongPassword);
 
     final future = sut.signin(email: email, password: password);
 
