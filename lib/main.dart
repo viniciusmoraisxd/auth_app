@@ -1,7 +1,7 @@
 import 'package:auth_app/data/usecases/usecases.dart';
 import 'package:auth_app/presentation/controllers/login/login_controller.dart';
 import 'package:auth_app/presentation/controllers/sign_up/sign_up_controller.dart';
-import 'package:auth_app/presentation/pages/sign_up/sign_up.dart';
+import 'package:auth_app/route_generator.dart';
 import 'package:auth_app/shared/themes/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,7 +47,8 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           title: 'Flutter Auth Demo',
-          home: const SignUpPage(),
+          initialRoute: "/login",
+          onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),
     );
