@@ -1,11 +1,14 @@
+import 'package:auth_app/domain/usecases/sign_in.dart';
+
 import '../../domain/helpers/helpers.dart';
 import '../firebase/firebase.dart';
 
-class RemoteSignIn {
+class RemoteSignIn implements SignIn{
   final FirebaseAuthClient firebaseAuthClient;
 
   RemoteSignIn({required this.firebaseAuthClient});
 
+  @override
   Future<void> signin({required String email, required String password}) async {
     try {
       await firebaseAuthClient.signInWithEmailAndPassword(
