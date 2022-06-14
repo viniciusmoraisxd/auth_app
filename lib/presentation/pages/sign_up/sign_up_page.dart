@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auth_app/presentation/controllers/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +62,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     builder: (context, value, child) {
                       if (value is SignUpSuccess) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          log("Success Register");
+                          SchedulerBinding.instance.addPostFrameCallback((_) {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/home", (route) => false);
+                          });
                         });
                       }
 

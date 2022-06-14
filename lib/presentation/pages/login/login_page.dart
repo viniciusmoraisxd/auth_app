@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -63,7 +61,8 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context, value, child) {
                       if (value is AuthenticationSuccess) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          log("Success Login");
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/home", (route) => false);
                         });
                       }
 
