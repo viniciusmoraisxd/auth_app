@@ -6,7 +6,7 @@ class RemoteSignIn {
 
   RemoteSignIn({required this.firebaseAuthClient});
 
-  Future signin({required String email, required String password}) async {
+  Future<void> signin({required String email, required String password}) async {
     try {
       await firebaseAuthClient.signInWithEmailAndPassword(
           email: email, password: password);

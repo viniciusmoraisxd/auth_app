@@ -29,6 +29,10 @@ void main() {
   });
 
   test('Should call FirebaseAuthClient with correct values', () async {
+    when(() => firebaseAuthClientSpy.signInWithEmailAndPassword(
+        email: any(named: "email"),
+        password: any(named: "password"))).thenAnswer((_) async => _);
+
     await sut.signin(email: email, password: password);
 
     verify(

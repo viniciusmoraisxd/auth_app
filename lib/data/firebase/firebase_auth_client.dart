@@ -1,4 +1,5 @@
+
 abstract class FirebaseAuthClient {
-  Future<dynamic>? signInWithEmailAndPassword(
+  Future<void> signInWithEmailAndPassword(
       {required String email, required String password});
 }
