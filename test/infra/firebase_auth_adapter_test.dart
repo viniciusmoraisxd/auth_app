@@ -22,6 +22,8 @@ class FirebaseAuthAdapter implements FirebaseAuthClient {
       switch (e.code) {
         case "user-disabled":
           throw FirebaseAuthError.userDisabled;
+        case "user-not-found":
+          throw FirebaseAuthError.userNotFound;
       }
     }
   }
@@ -58,5 +60,16 @@ Future<void> main() async {
         sut.signInWithEmailAndPassword(email: email, password: password);
 
     expect(future, throwsA(FirebaseAuthError.userDisabled));
+  });
+
+  test(
+      'Should throw FirebaseUserNotFoundError if signInWithEmailAndPassword throws user-not-found',
+      () async {
+    firebaseAuthSpy.mockSignInError('user-not-found');
+
+    final future =
+        sut.signInWithEmailAndPassword(email: email, password: password);
+
+    expect(future, throwsA(FirebaseAuthError.userNotFound));
   });
 }
