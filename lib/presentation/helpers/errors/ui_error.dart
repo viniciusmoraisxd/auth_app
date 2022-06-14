@@ -5,7 +5,8 @@ enum UIError {
   invalidCredentials,
   emailInUse,
   userDisabled,
-  userNotFound
+  userNotFound,
+  weakPassword
 }
 
 extension UIErrorExtension on UIError {
@@ -28,6 +29,9 @@ extension UIErrorExtension on UIError {
 
       case UIError.userNotFound:
         return "Usuário não encontrado.";
+
+      case UIError.weakPassword:
+        return "Senha fraca.";
 
       default:
         return "Algo de errado aconteceu!";

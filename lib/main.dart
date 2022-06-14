@@ -1,6 +1,7 @@
 import 'package:auth_app/data/usecases/usecases.dart';
 import 'package:auth_app/presentation/controllers/login/login_controller.dart';
-import 'package:auth_app/presentation/pages/pages.dart';
+import 'package:auth_app/presentation/controllers/sign_up/sign_up_controller.dart';
+import 'package:auth_app/presentation/pages/sign_up/sign_up.dart';
 import 'package:auth_app/shared/themes/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,14 +34,20 @@ class MyApp extends StatelessWidget {
                 firebaseAuthClient: context.read<FirebaseAuthAdapter>())),
         ChangeNotifierProvider(
             create: (context) =>
-                LoginController(signIn: context.read<RemoteSignIn>()))
+                LoginController(signIn: context.read<RemoteSignIn>())),
+        Provider(
+            create: (context) => RemoteSignUp(
+                firebaseAuthClient: context.read<FirebaseAuthAdapter>())),
+        ChangeNotifierProvider(
+            create: (context) =>
+                SignUpController(signUp: context.read<RemoteSignUp>()))
       ],
-      child:  OverlaySupport.global(
+      child: OverlaySupport.global(
         child: MaterialApp(
           theme: AppTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           title: 'Flutter Auth Demo',
-          home: const LoginPage(),
+          home: const SignUpPage(),
         ),
       ),
     );

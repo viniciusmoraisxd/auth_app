@@ -1,36 +1,11 @@
+import 'package:auth_app/data/usecases/usecases.dart';
 import 'package:auth_app/domain/helpers/helpers.dart';
-import 'package:auth_app/domain/usecases/sign_up.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:auth_app/data/firebase/firebase.dart';
 import 'package:faker/faker.dart';
 
 class FirebaseAuthClientSpy extends Mock implements FirebaseAuthClient {}
-
-class RemoteSignUp implements SignUp {
-  final FirebaseAuthClient firebaseAuthClient;
-
-  RemoteSignUp({required this.firebaseAuthClient});
-
-  @override
-  Future<void> signup({required String email, required String password}) async {
-    try {
-      await firebaseAuthClient.createUserWithEmailAndPassword(
-          email: email, password: password);
-    } on FirebaseSignUpError catch (e) {
-      switch (e) {
-        case FirebaseSignUpError.emailAlreadyInUse:
-          throw DomainError.emailInUse;
-        case FirebaseSignUpError.invalidEmail:
-          throw DomainError.invalidEmail;
-        case FirebaseSignUpError.operationNotAllowed:
-          throw DomainError.userDisabled;
-        case FirebaseSignUpError.weakPassword:
-          throw DomainError.weakPassword;
-      }
-    }
-  }
-}
 
 void main() {
   late FirebaseAuthClientSpy firebaseAuthClientSpy;
@@ -103,4 +78,3 @@ void main() {
     expect(future, throwsA(DomainError.weakPassword));
   });
 }
-
