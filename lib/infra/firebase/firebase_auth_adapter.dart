@@ -28,5 +28,21 @@ class FirebaseAuthAdapter implements FirebaseAuthClient {
 
   @override
   Future<void> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {}
+      {required String email, required String password}) async {
+    try {
+      await firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          throw FirebaseSignUpError.operationNotAllowed;
+        case "email-already-in-use":
+          throw FirebaseSignUpError.emailAlreadyInUse;
+        case "invalid-email":
+          throw FirebaseSignUpError.invalidEmail;
+        case "weak-password":
+          throw FirebaseSignUpError.weakPassword;
+      }
+    }
+  }
 }

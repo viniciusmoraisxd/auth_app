@@ -1,4 +1,4 @@
-import 'package:auth_app/data/firebase/firebase_sign_in_error.dart';
+import 'package:auth_app/data/firebase/firebase.dart';
 import 'package:auth_app/infra/firebase/firebase.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,56 +19,115 @@ Future<void> main() async {
     password = faker.internet.password();
 
     firebaseAuthSpy.mockSignIn();
+    firebaseAuthSpy.mockSignUp();
   });
 
-  test('Should call signInWithEmailAndPassword with correct values', () async {
-    await sut.signInWithEmailAndPassword(email: email, password: password);
+  group("Sign in with email and password", () {
+    test('Should call signInWithEmailAndPassword with correct values',
+        () async {
+      await sut.signInWithEmailAndPassword(email: email, password: password);
 
-    verify(() => firebaseAuthSpy.signInWithEmailAndPassword(
-        email: email, password: password));
+      verify(() => firebaseAuthSpy.signInWithEmailAndPassword(
+          email: email, password: password));
+    });
+
+    test(
+        'Should throw FirebaseUserDisabledError if signInWithEmailAndPassword throws user-disabled',
+        () async {
+      firebaseAuthSpy.mockSignInError('user-disabled');
+
+      final future =
+          sut.signInWithEmailAndPassword(email: email, password: password);
+
+      expect(future, throwsA(FirebaseSignInError.userDisabled));
+    });
+
+    test(
+        'Should throw FirebaseUserNotFoundError if signInWithEmailAndPassword throws user-not-found',
+        () async {
+      firebaseAuthSpy.mockSignInError('user-not-found');
+
+      final future =
+          sut.signInWithEmailAndPassword(email: email, password: password);
+
+      expect(future, throwsA(FirebaseSignInError.userNotFound));
+    });
+
+    test(
+        'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws invalid-email',
+        () async {
+      firebaseAuthSpy.mockSignInError('invalid-email');
+
+      final future =
+          sut.signInWithEmailAndPassword(email: email, password: password);
+
+      expect(future, throwsA(FirebaseSignInError.invalidEmail));
+    });
+
+    test(
+        'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws wrong-password',
+        () async {
+      firebaseAuthSpy.mockSignInError('wrong-password');
+
+      final future =
+          sut.signInWithEmailAndPassword(email: email, password: password);
+
+      expect(future, throwsA(FirebaseSignInError.wrongPassword));
+    });
   });
 
-  test(
-      'Should throw FirebaseUserDisabledError if signInWithEmailAndPassword throws user-disabled',
-      () async {
-    firebaseAuthSpy.mockSignInError('user-disabled');
+  group("Create user with email and password", () {
+    test('Should call createUserWithEmailAndPassword with correct values',
+        () async {
+      await sut.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-    final future =
-        sut.signInWithEmailAndPassword(email: email, password: password);
+      verify(() => firebaseAuthSpy.createUserWithEmailAndPassword(
+          email: email, password: password));
+    });
 
-    expect(future, throwsA(FirebaseSignInError.userDisabled));
-  });
+    test(
+        'Should throw FirebaseUserDisabledError if signInWithEmailAndPassword throws operation-not-allowed',
+        () async {
+      firebaseAuthSpy.mockSignUpError('operation-not-allowed');
 
-  test(
-      'Should throw FirebaseUserNotFoundError if signInWithEmailAndPassword throws user-not-found',
-      () async {
-    firebaseAuthSpy.mockSignInError('user-not-found');
+      final future =
+          sut.createUserWithEmailAndPassword(email: email, password: password);
 
-    final future =
-        sut.signInWithEmailAndPassword(email: email, password: password);
+      expect(future, throwsA(FirebaseSignUpError.operationNotAllowed));
+    });
 
-    expect(future, throwsA(FirebaseSignInError.userNotFound));
-  });
+    test(
+        'Should throw FirebaseUserNotFoundError if signInWithEmailAndPassword throws email-already-in-use',
+        () async {
+      firebaseAuthSpy.mockSignUpError('email-already-in-use');
 
-  test(
-      'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws invalid-email',
-      () async {
-    firebaseAuthSpy.mockSignInError('invalid-email');
+      final future =
+          sut.createUserWithEmailAndPassword(email: email, password: password);
 
-    final future =
-        sut.signInWithEmailAndPassword(email: email, password: password);
+      expect(future, throwsA(FirebaseSignUpError.emailAlreadyInUse));
+    });
 
-    expect(future, throwsA(FirebaseSignInError.invalidEmail));
-  });
+    test(
+        'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws invalid-email',
+        () async {
+      firebaseAuthSpy.mockSignUpError('invalid-email');
 
-  test(
-      'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws wrong-password',
-      () async {
-    firebaseAuthSpy.mockSignInError('wrong-password');
+      final future =
+          sut.createUserWithEmailAndPassword(email: email, password: password);
 
-    final future =
-        sut.signInWithEmailAndPassword(email: email, password: password);
+      expect(future, throwsA(FirebaseSignUpError.invalidEmail));
+    });
 
-    expect(future, throwsA(FirebaseSignInError.wrongPassword));
+    test(
+        'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws weak-password',
+        () async {
+      firebaseAuthSpy.mockSignUpError('weak-password');
+
+      final future =
+          sut.createUserWithEmailAndPassword(email: email, password: password);
+
+      expect(future, throwsA(FirebaseSignUpError.weakPassword));
+    });
   });
 }
