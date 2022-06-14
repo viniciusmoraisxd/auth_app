@@ -21,6 +21,12 @@ class RemoteSignUp implements SignUp {
       switch (e) {
         case FirebaseSignUpError.emailAlreadyInUse:
           throw DomainError.emailInUse;
+        case FirebaseSignUpError.invalidEmail:
+          throw DomainError.invalidEmail;
+        case FirebaseSignUpError.operationNotAllowed:
+          throw DomainError.userDisabled;
+        case FirebaseSignUpError.weakPassword:
+          throw DomainError.weakPassword;
       }
     }
   }
@@ -66,13 +72,35 @@ void main() {
 
     expect(future, throwsA(DomainError.emailInUse));
   });
+
+  test(
+      'Should throw InvalidEmailError if FirebaseAuthClient throws invalidEmail',
+      () async {
+    mockFirebaseAuthRequestError(FirebaseSignUpError.invalidEmail);
+
+    final future = sut.signup(email: email, password: password);
+
+    expect(future, throwsA(DomainError.invalidEmail));
+  });
+
+  test(
+      'Should throw UserDisabledError if FirebaseAuthClient throws operationNotAllowed',
+      () async {
+    mockFirebaseAuthRequestError(FirebaseSignUpError.operationNotAllowed);
+
+    final future = sut.signup(email: email, password: password);
+
+    expect(future, throwsA(DomainError.userDisabled));
+  });
+
+  test(
+      'Should throw WeakPasswordError if FirebaseAuthClient throws weakPassword',
+      () async {
+    mockFirebaseAuthRequestError(FirebaseSignUpError.weakPassword);
+
+    final future = sut.signup(email: email, password: password);
+
+    expect(future, throwsA(DomainError.weakPassword));
+  });
 }
 
-// email-already-in-use:
-// Thrown if there already exists an account with the given email address.
-// invalid-email:
-// Thrown if the email address is not valid.
-// operation-not-allowed:
-// Thrown if email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.
-// weak-password:
-// Thrown if the password is not strong enough.
