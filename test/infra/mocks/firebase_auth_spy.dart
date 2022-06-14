@@ -11,4 +11,7 @@ class FirebaseAuthSpy extends Mock implements FirebaseAuth {
 
   void mockSignIn() =>
       mockSignInCall().thenAnswer((_) async => MockFirebaseAuthResult());
+
+  void mockSignInError(String code) =>
+      mockSignInCall().thenThrow(FirebaseAuthException(code: code));
 }
