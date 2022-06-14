@@ -25,54 +25,55 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: widget.height * 0.1),
-      child: Column(
-        children: [
-          CustomTextFormField(
-            controller: widget.emailController,
-            label: "E-mail",
-            textInputType: TextInputType.emailAddress,
-            validator: (String? value) =>
-                InputValidators.emailFieldValidator(email: value),
+    return Column(
+      children: [
+        CustomTextFormField(
+          controller: widget.emailController,
+          label: "E-mail",
+          textInputType: TextInputType.emailAddress,
+          prefix: const Icon(Icons.mail_outline),
+          validator: (String? value) =>
+              InputValidators.emailFieldValidator(email: value),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        CustomTextFormField(
+          controller: widget.passwordController,
+          prefix: const Icon(
+            Icons.lock_outline,
           ),
-          const SizedBox(
-            height: 24,
+          label: "Password",
+          obscureText: obscurePassword,
+          validator: (String? value) =>
+              InputValidators.requiredFieldValidator(value: value),
+          suffix: IconButton(
+            icon: Icon(obscurePassword ? Ionicons.eye_off : Ionicons.eye),
+            onPressed: () {
+              setState(() {
+                obscurePassword = !obscurePassword;
+              });
+            },
           ),
-          CustomTextFormField(
-            controller: widget.passwordController,
-            label: "Password",
-            obscureText: obscurePassword,
-            validator: (String? value) =>
-                InputValidators.requiredFieldValidator(value: value),
-            suffix: IconButton(
-              icon: Icon(obscurePassword ? Ionicons.eye_off : Ionicons.eye),
-              onPressed: () {
-                setState(() {
-                  obscurePassword = !obscurePassword;
-                });
-              },
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            margin: const EdgeInsets.only(top: 16),
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Esqueceu a senha?",
+              style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600),
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              margin: const EdgeInsets.only(top: 16),
-              alignment: Alignment.centerRight,
-              child: Text(
-                "Esqueceu a senha?",
-                style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: widget.height * 0.06,
-          )
-        ],
-      ),
+        ),
+        SizedBox(
+          height: widget.height * 0.06,
+        )
+      ],
     );
   }
 }

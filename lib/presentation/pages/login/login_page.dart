@@ -107,30 +107,39 @@ class _LoginPageState extends State<LoginPage> {
                                   )
                                 : const Text(
                                     "Logar",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: "Gotham-SSm",
+                                    ),
                                   ),
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(
-                                vertical: constraints.maxHeight * 0.06),
+                                vertical: constraints.maxHeight * 0.09),
                             child: Column(
                               children: [
-                                const Text(
-                                  "Não tem uma conta?",
-                                  style: TextStyle(fontSize: 12),
-                                ),
                                 // const SizedBox(height: 6),
                                 GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamed("/support");
-                                    },
-                                    child: Text(
-                                      "Fale com o atendimento!",
-                                      style: TextStyle(
-                                          color: AppColors.primaryColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                    )),
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed("/support");
+                                  },
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text: 'Não tem uma conta?',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.primaryColor,
+                                            fontFamily: "Gotham-SSm"),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: ' Registre-se',
+                                              style: TextStyle(
+                                                  color: AppColors.primaryColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600)),
+                                        ]),
+                                  ),
+                                ),
                               ],
                             ),
                           )

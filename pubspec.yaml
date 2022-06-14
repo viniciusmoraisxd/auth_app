@@ -83,17 +83,40 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+      - family: Gotham-SSm
+        fonts:
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-XLight.ttf
+            weight: 200
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-XLightItalic.ttf
+            weight: 200
+            style: italic
+
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-Light.ttf
+            weight: 300
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-LightItalic.ttf
+            weight: 300
+            style: italic
+
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-Book.ttf
+            weight: 400
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-BookItalic.ttf
+            weight: 400
+            style: italic
+
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-Medium.ttf
+            weight: 500
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-MediumItalic.ttf
+            weight: 500
+            style: italic
+
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-Bold.ttf
+            weight: 700
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-BoldItalic.ttf
+            weight: 700
+            style: italic
+
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-Black.ttf
+            weight: 900
+          - asset: assets/fonts/Gotham-SSm/GothamSSm-BlackItalic.ttf
+            weight: 900

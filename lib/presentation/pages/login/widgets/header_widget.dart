@@ -13,15 +13,22 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: height * 0.1),
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(top: height * 0.06, bottom: height * 0.024),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
             AppImages.login,
             height: height * 0.35,
+            // color: Colors.amber,
           ),
-        
+          Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                "Login",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ))
         ],
       ),
     );

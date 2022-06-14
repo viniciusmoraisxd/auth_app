@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../themes/themes.dart';
-
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
   final Function(String)? onChanged;
   final Widget? suffix;
+  final Widget? prefix;
   final TextInputType? textInputType;
   final bool? enabled;
   final bool? obscureText;
@@ -36,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
     this.initialText,
     this.inputFormatters,
     this.validator,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -49,19 +49,20 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText ?? false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
+      style: const TextStyle(fontSize: 12),
       decoration: InputDecoration(
-        prefixText: prefixText,
-        label: Text(
-          label,
-          style: const TextStyle(color: AppColors.grey),
+        hintText: label,
+        prefixIcon: prefix,
+        hintStyle: const TextStyle(
+          fontSize: 12,
         ),
-        // labelStyle: AppTypography.customTextFormLabel(),
+        border: const OutlineInputBorder(),
         helperText: helpText,
         helperStyle: const TextStyle(fontSize: 10),
         errorText: errorText,
+        errorStyle: const TextStyle(fontSize: 10, height: 0.9),
         suffixIcon: suffix,
-        alignLabelWithHint: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 0),
+        isDense: true,
       ),
     );
   }
