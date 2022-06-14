@@ -26,6 +26,8 @@ class FirebaseAuthAdapter implements FirebaseAuthClient {
           throw FirebaseAuthError.userNotFound;
         case "invalid-email":
           throw FirebaseAuthError.invalidEmail;
+        case "wrong-password":
+          throw FirebaseAuthError.wrongPassword;
       }
     }
   }
@@ -84,5 +86,16 @@ Future<void> main() async {
         sut.signInWithEmailAndPassword(email: email, password: password);
 
     expect(future, throwsA(FirebaseAuthError.invalidEmail));
+  });
+
+  test(
+      'Should throw FirebaseInvalidCredentialsError if signInWithEmailAndPassword throws wrong-password',
+      () async {
+    firebaseAuthSpy.mockSignInError('wrong-password');
+
+    final future =
+        sut.signInWithEmailAndPassword(email: email, password: password);
+
+    expect(future, throwsA(FirebaseAuthError.wrongPassword));
   });
 }
