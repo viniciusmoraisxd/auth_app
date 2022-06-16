@@ -57,7 +57,9 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed("/forgot_password");
+          },
           child: Container(
             margin: const EdgeInsets.only(top: 16),
             alignment: Alignment.centerRight,

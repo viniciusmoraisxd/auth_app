@@ -1,3 +1,4 @@
+import 'package:auth_app/presentation/pages/forgot_password/forgot_password.dart';
 import 'package:flutter/material.dart';
 import 'presentation/pages/pages.dart';
 
@@ -8,6 +9,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignUpPage());
+      case '/forgot_password':
+        return MaterialPageRoute(builder: (_) => const ForgotPassword());
       case '/home':
         return MaterialPageRoute(builder: (_) => const HomePage());
 
