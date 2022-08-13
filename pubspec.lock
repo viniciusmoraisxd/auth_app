@@ -483,6 +483,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  value_listenable_test:
+    dependency: "direct main"
+    description:
+      name: value_listenable_test
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   vector_math:
     dependency: transitive
     description:

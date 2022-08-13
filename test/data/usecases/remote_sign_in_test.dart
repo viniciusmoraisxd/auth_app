@@ -33,7 +33,7 @@ void main() {
         email: any(named: "email"),
         password: any(named: "password"))).thenAnswer((_) async => _);
 
-    await sut.signin(email: email, password: password);
+    await sut.call(email: email, password: password);
 
     verify(
       () => firebaseAuthClientSpy.signInWithEmailAndPassword(
@@ -46,7 +46,7 @@ void main() {
       () async {
     mockFirebaseRequestError(FirebaseSignInError.userDisabled);
 
-    final future = sut.signin(email: email, password: password);
+    final future = sut.call(email: email, password: password);
 
     expect(future, throwsA(DomainError.userDisabled));
   });
@@ -56,7 +56,7 @@ void main() {
       () async {
     mockFirebaseRequestError(FirebaseSignInError.userNotFound);
 
-    final future = sut.signin(email: email, password: password);
+    final future = sut.call(email: email, password: password);
 
     expect(future, throwsA(DomainError.userNotFound));
   });
@@ -66,7 +66,7 @@ void main() {
       () async {
     mockFirebaseRequestError(FirebaseSignInError.invalidEmail);
 
-    final future = sut.signin(email: email, password: password);
+    final future = sut.call(email: email, password: password);
 
     expect(future, throwsA(DomainError.invalidCredentials));
   });
@@ -76,7 +76,7 @@ void main() {
       () async {
     mockFirebaseRequestError(FirebaseSignInError.wrongPassword);
 
-    final future = sut.signin(email: email, password: password);
+    final future = sut.call(email: email, password: password);
 
     expect(future, throwsA(DomainError.invalidCredentials));
   });

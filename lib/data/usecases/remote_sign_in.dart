@@ -9,7 +9,7 @@ class RemoteSignIn implements SignIn{
   RemoteSignIn({required this.firebaseAuthClient});
 
   @override
-  Future<void> signin({required String email, required String password}) async {
+  Future<void> call({required String email, required String password}) async {
     try {
       await firebaseAuthClient.signInWithEmailAndPassword(
           email: email, password: password);

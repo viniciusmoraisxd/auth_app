@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
-import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
 import '../../../shared/themes/themes.dart';
-import '../../controllers/login/login.dart';
+import '../../controllers/sign_in/sign_in.dart';
+import '../../helpers/mixins/mixins.dart';
 import 'widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,8 +16,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  late LoginController controller;
+class _LoginPageState extends State<LoginPage> with UIErrorManager {
+  late SignInController controller;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    controller = context.read<LoginController>();
+    controller = context.read<SignInController>();
     super.initState();
   }
 
@@ -57,50 +57,34 @@ class _LoginPageState extends State<LoginPage> {
                       emailController: emailController,
                       passwordController: passwordController),
                   ValueListenableBuilder(
-                    valueListenable: context.read<LoginController>(),
+                    valueListenable: context.read<SignInController>(),
                     builder: (context, value, child) {
-                      if (value is AuthenticationSuccess) {
+                      if (value is SignInSuccess) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
                           Navigator.pushNamedAndRemoveUntil(
                               context, "/home", (route) => false);
                         });
                       }
 
-                      if (value is AuthenticationFailed) {
+                      if (value is SignInFailed) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          showSimpleNotification(
-                              const Text(
-                                "Ops!",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.white,
-                                    fontSize: 14),
-                              ),
-                              background: Colors.red.shade400,
-                              duration: const Duration(seconds: 5),
-                              subtitle: Text(
-                                value.error,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.white,
-                                    fontSize: 12),
-                              ));
+                          handleError(context, uiError: value.uiError);
                         });
                       }
 
                       return Column(
                         children: [
                           ElevatedButton(
-                            onPressed: value is AuthenticationLoading
+                            onPressed: value is SignInLoading
                                 ? null
                                 : () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await controller.login(
+                                      await controller.call(
                                           email: emailController.text,
                                           password: passwordController.text);
                                     }
                                   },
-                            child: value is AuthenticationLoading
+                            child: value is SignInLoading
                                 ? const CircularProgressIndicator(
                                     color: AppColors.white,
                                   )

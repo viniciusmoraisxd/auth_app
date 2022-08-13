@@ -8,6 +8,7 @@ class AppColors {
   static Color accentColor = const Color(0xFFFFC727);
 
   static Color cardBackgroundColor = const Color(0xFFF0f1f5);
+  static MaterialAccentColor errorBackgroundColor = Colors.redAccent;
 
   static const Color black = Colors.black;
   static const Color black54 = Colors.black54;

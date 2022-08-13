@@ -1,3 +1,3 @@
 abstract class SignIn {
-  Future signin({required String email, required String password});
+  Future call({required String email, required String password});
 }
