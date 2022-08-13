@@ -5,9 +5,9 @@ import 'presentation/pages/pages.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/login':
+      case '/sign_in':
         return MaterialPageRoute(builder: (_) => const SignInPage());
-      case '/signup':
+      case '/sign_up':
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case '/forgot_password':
         return MaterialPageRoute(builder: (_) => const ForgotPassword());

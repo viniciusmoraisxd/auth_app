@@ -6,7 +6,10 @@ class SignUpSpy extends Mock implements SignUp {
   When mockSignUpCall() => when(
       () => call(email: any(named: "email"), password: any(named: "password")));
 
-  void mockSignUpResponse() => mockSignUpCall().thenAnswer((_) async => _);
+  void mockSignUpResponse() => mockSignUpCall().thenAnswer((_) async {
+        await Future.delayed(const Duration(seconds: 1));
+        return _;
+      });
 
   void mockSignUpResponseError(DomainError error) =>
       mockSignUpCall().thenThrow(error);

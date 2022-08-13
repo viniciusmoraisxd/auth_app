@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
-import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
 import '../../../shared/themes/themes.dart';
+import '../../helpers/helpers.dart';
 import 'widgets/widgets.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
   late SignUpController controller;
 
   final TextEditingController emailController = TextEditingController();
@@ -70,23 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       if (value is SignUpFailed) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          showSimpleNotification(
-                              const Text(
-                                "Ops!",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.white,
-                                    fontSize: 14),
-                              ),
-                              background: Colors.red.shade400,
-                              duration: const Duration(seconds: 5),
-                              subtitle: const Text(
-                                "value.error",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.white,
-                                    fontSize: 12),
-                              ));
+                          handleError(context, uiError: value.uiError);
                         });
                       }
 
@@ -120,11 +104,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Column(
                               children: [
                                 // const SizedBox(height: 6),
+
                                 GestureDetector(
+                                  key: const Key("signInButton"),
                                   onTap: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            "/sign_in", (route) => false);
                                   },
                                   child: RichText(
+                                    key: const Key("Logar"),
                                     text: TextSpan(
                                         text: 'Já tem uma conta?',
                                         style: TextStyle(

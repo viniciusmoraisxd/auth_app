@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           title: 'Flutter Auth Demo',
-          initialRoute: "/login",
+          initialRoute: "/sign_in",
           onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),

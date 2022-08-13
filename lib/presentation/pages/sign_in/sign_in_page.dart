@@ -105,7 +105,7 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                                 GestureDetector(
                                   key: const Key("signupButton"),
                                   onTap: () {
-                                    Navigator.of(context).pushNamed("/signup");
+                                    Navigator.of(context).pushNamed("/sign_up");
                                   },
                                   child: RichText(
                                     key: const Key("Registre-se"),
