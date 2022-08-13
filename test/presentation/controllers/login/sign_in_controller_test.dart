@@ -60,6 +60,40 @@ void main() {
     sut(email: email, password: password);
   });
 
+  test(
+      'Should emit userDisabled if SignIn throws invalidCredentials',
+      () async {
+    signInSpy.mockSignInResponseError(DomainError.userDisabled);
+
+    expect(
+        sut,
+        emitValues([
+          isA<SignInLoading>(),
+          isA<SignInFailed>().having((p0) => p0.uiError,
+              "Should contain userDisabled error", UIError.userDisabled),
+          isA<SignInInitial>(),
+        ]));
+
+    sut(email: email, password: password);
+  });
+
+    test(
+      'Should emit userNotFoundError if SignIn throws userNotFound',
+      () async {
+    signInSpy.mockSignInResponseError(DomainError.userNotFound);
+
+    expect(
+        sut,
+        emitValues([
+          isA<SignInLoading>(),
+          isA<SignInFailed>().having((p0) => p0.uiError,
+              "Should contain userNotFound error", UIError.userNotFound),
+          isA<SignInInitial>(),
+        ]));
+
+    sut(email: email, password: password);
+  });
+
   test('Should emit UIUnexpectedError if SignIn throws unexpected', () async {
     signInSpy.mockSignInResponseError(DomainError.unexpected);
 
