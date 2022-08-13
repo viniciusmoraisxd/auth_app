@@ -19,6 +19,7 @@ class HeaderWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
+            key: const Key("signInAsset"),
             AppImages.login,
             height: height * 0.35,
             // color: Colors.amber,

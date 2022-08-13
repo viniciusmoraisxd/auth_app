@@ -14,4 +14,18 @@ class InputValidators {
     final isValid = email?.isNotEmpty != true || regex.hasMatch(email!);
     return isValid ? null : "E-mail inválido";
   }
+
+  static String? compareFieldsValidator(
+      {String? field, String? fieldToCompare}) {
+    final isRequiredField = requiredFieldValidator(value: field);
+    final isRequiredFieldCompared =
+        requiredFieldValidator(value: fieldToCompare);
+
+    if (isRequiredField != null || isRequiredFieldCompared != null) {
+      return isRequiredField;
+    }
+
+    final isValid = field == fieldToCompare;
+    return isValid ? null : "Campo inválido";
+  }
 }

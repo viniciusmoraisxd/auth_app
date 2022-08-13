@@ -6,12 +6,10 @@ import '../../../helpers/validators/validators.dart';
 class FormContainerWidget extends StatefulWidget {
   final double height;
   final TextEditingController emailController;
-  final TextEditingController passwordController;
   const FormContainerWidget({
     Key? key,
     required this.height,
     required this.emailController,
-    required this.passwordController,
   }) : super(key: key);
 
   @override

@@ -50,6 +50,7 @@ void main() {
   testWidgets('Should display widgets correctly', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
 
+    expect(find.byKey(const Key("signInAsset")), findsOneWidget);
     expect(find.text('Login'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'E-mail'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'Password'), findsOneWidget);

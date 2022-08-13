@@ -21,6 +21,8 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmationPasswordController =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -53,9 +55,12 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                 children: [
                   HeaderWidget(height: constraints.maxHeight),
                   FormContainerWidget(
-                      height: constraints.maxHeight,
-                      emailController: emailController,
-                      passwordController: passwordController),
+                    height: constraints.maxHeight,
+                    emailController: emailController,
+                    passwordController: passwordController,
+                    confirmationPasswordController:
+                        confirmationPasswordController,
+                  ),
                   ValueListenableBuilder(
                     valueListenable: context.read<SignUpController>(),
                     builder: (context, value, child) {

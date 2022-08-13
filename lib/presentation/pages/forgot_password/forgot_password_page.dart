@@ -12,7 +12,6 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -34,11 +33,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 children: [
                   HeaderWidget(height: constraints.maxHeight),
                   FormContainerWidget(
-                      height: constraints.maxHeight,
-                      emailController: emailController,
-                      passwordController: passwordController),
+                    height: constraints.maxHeight,
+                    emailController: emailController,
+                  ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) null;
+                    },
                     child: const Text(
                       "Enviar",
                       style: TextStyle(

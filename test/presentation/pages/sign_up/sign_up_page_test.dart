@@ -48,6 +48,7 @@ void main() {
 
   testWidgets('Should display widgets correctly', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
+    expect(find.byKey(const Key("signUpAsset")), findsOneWidget);
 
     expect(find.text('Registre-se'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'Seu nome completo'),
@@ -104,6 +105,18 @@ void main() {
     await tester.pump();
 
     expect(find.text('E-mail inválido'), findsOneWidget);
+  });
+
+  testWidgets('Should present error if confirmation password is invalid',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(loadPage());
+    await tester.enterText(
+        find.widgetWithText(TextFormField, 'Sua senha'), password);
+    await tester.enterText(
+        find.widgetWithText(TextFormField, 'Repita sua senha'), 'any_password');
+    await tester.pump();
+
+    expect(find.text('Campo inválido'), findsOneWidget);
   });
 
   testWidgets('Should call signIn on form submit', (WidgetTester tester) async {
@@ -182,7 +195,7 @@ void main() {
     expect(find.text("O e-mail já está em uso."), findsNothing);
   });
 
-    testWidgets('Should present InvalidEmailError', (WidgetTester tester) async {
+  testWidgets('Should present InvalidEmailError', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
 
     signUpSpy.mockSignUpResponseError(DomainError.invalidEmail);
@@ -210,7 +223,7 @@ void main() {
     expect(find.text("Campo inválido."), findsNothing);
   });
 
-    testWidgets('Should present userDisabledError', (WidgetTester tester) async {
+  testWidgets('Should present userDisabledError', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
 
     signUpSpy.mockSignUpResponseError(DomainError.userDisabled);
@@ -238,7 +251,7 @@ void main() {
     expect(find.text("Este usuário está desabilitado."), findsNothing);
   });
 
- testWidgets('Should present weakPasswordError', (WidgetTester tester) async {
+  testWidgets('Should present weakPasswordError', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
 
     signUpSpy.mockSignUpResponseError(DomainError.weakPassword);

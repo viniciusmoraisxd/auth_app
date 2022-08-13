@@ -8,11 +8,13 @@ class FormContainerWidget extends StatefulWidget {
   final double height;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final TextEditingController confirmationPasswordController;
   const FormContainerWidget({
     Key? key,
     required this.height,
     required this.emailController,
     required this.passwordController,
+    required this.confirmationPasswordController,
   }) : super(key: key);
 
   @override
@@ -75,7 +77,8 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           label: "Repita sua senha",
           obscureText: obscurePassword,
           validator: (String? value) =>
-              InputValidators.requiredFieldValidator(value: value),
+             InputValidators.compareFieldsValidator(
+              fieldToCompare: widget.passwordController.text, field: value),
           suffix: IconButton(
             icon: Icon(obscurePassword ? Ionicons.eye_off : Ionicons.eye),
             onPressed: () {
