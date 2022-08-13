@@ -8,7 +8,7 @@ class RemoteSignUp implements SignUp {
   RemoteSignUp({required this.firebaseAuthClient});
 
   @override
-  Future<void> signup({required String email, required String password}) async {
+  Future<void> call({required String email, required String password}) async {
     try {
       await firebaseAuthClient.createUserWithEmailAndPassword(
           email: email, password: password);

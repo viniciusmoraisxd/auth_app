@@ -1,4 +1,3 @@
-
 import 'package:auth_app/presentation/controllers/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -81,9 +80,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                               background: Colors.red.shade400,
                               duration: const Duration(seconds: 5),
-                              subtitle: Text(
-                                value.error,
-                                style: const TextStyle(
+                              subtitle: const Text(
+                                "value.error",
+                                style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.white,
                                     fontSize: 12),
@@ -98,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ? null
                                 : () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await controller.remoteSignUp(
+                                      await controller(
                                           email: emailController.text,
                                           password: passwordController.text);
                                     }

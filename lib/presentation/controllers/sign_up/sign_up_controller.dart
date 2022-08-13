@@ -13,33 +13,36 @@ class SignUpController extends ValueNotifier<SignUpState> {
     required this.signUp,
   }) : super(SignUpInitial());
 
-  Future remoteSignUp({
+  Future<void> call({
     required String email,
     required String password,
   }) async {
-    try {
-      value = SignUpLoading();
+    value = SignUpLoading();
 
-      await signUp.signup(email: email, password: password);
+    try {
+      await signUp(email: email, password: password);
       value = SignUpSuccess();
     } on DomainError catch (e) {
       switch (e) {
         case DomainError.emailInUse:
-          value = SignUpFailed(error: UIError.emailInUse.description);
+          value = const SignUpFailed(uiError: UIError.emailInUse);
           break;
         case DomainError.invalidEmail:
-          value = SignUpFailed(error: UIError.invalidField.description);
+          value = const SignUpFailed(uiError: UIError.invalidField);
           break;
         case DomainError.userDisabled:
-          value = SignUpFailed(error: UIError.userDisabled.description);
+          value = const SignUpFailed(uiError: UIError.userDisabled);
           break;
         case DomainError.weakPassword:
-          value = SignUpFailed(error: UIError.weakPassword.description);
+          value = const SignUpFailed(uiError: UIError.weakPassword);
           break;
         default:
-          value = SignUpFailed(error: UIError.unexpected.description);
+          value = const SignUpFailed(uiError: UIError.unexpected);
           break;
       }
     }
+
+    await Future.delayed(const Duration(seconds: 1));
+    value = SignUpInitial();
   }
 }

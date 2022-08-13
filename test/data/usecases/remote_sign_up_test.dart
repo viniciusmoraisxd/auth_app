@@ -32,7 +32,7 @@ void main() {
         email: any(named: "email"),
         password: any(named: "password"))).thenAnswer((_) async => _);
 
-    await sut.signup(email: email, password: password);
+    await sut(email: email, password: password);
 
     verify(() => firebaseAuthClientSpy.createUserWithEmailAndPassword(
         email: email, password: password));
@@ -43,7 +43,7 @@ void main() {
       () async {
     mockFirebaseAuthRequestError(FirebaseSignUpError.emailAlreadyInUse);
 
-    final future = sut.signup(email: email, password: password);
+    final future = sut(email: email, password: password);
 
     expect(future, throwsA(DomainError.emailInUse));
   });
@@ -53,7 +53,7 @@ void main() {
       () async {
     mockFirebaseAuthRequestError(FirebaseSignUpError.invalidEmail);
 
-    final future = sut.signup(email: email, password: password);
+    final future = sut(email: email, password: password);
 
     expect(future, throwsA(DomainError.invalidEmail));
   });
@@ -63,7 +63,7 @@ void main() {
       () async {
     mockFirebaseAuthRequestError(FirebaseSignUpError.operationNotAllowed);
 
-    final future = sut.signup(email: email, password: password);
+    final future = sut(email: email, password: password);
 
     expect(future, throwsA(DomainError.userDisabled));
   });
@@ -73,7 +73,7 @@ void main() {
       () async {
     mockFirebaseAuthRequestError(FirebaseSignUpError.weakPassword);
 
-    final future = sut.signup(email: email, password: password);
+    final future = sut(email: email, password: password);
 
     expect(future, throwsA(DomainError.weakPassword));
   });

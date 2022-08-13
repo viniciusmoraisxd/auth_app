@@ -11,7 +11,7 @@ class SignUpLoading extends SignUpState {}
 class SignUpSuccess extends SignUpState {}
 
 class SignUpFailed extends SignUpState {
-  final String error;
+  final UIError uiError;
 
-  const SignUpFailed({required this.error});
+  const SignUpFailed({required this.uiError});
 }

@@ -1,3 +1,3 @@
 abstract class SignUp {
-  Future signup({required String email, required String password});
+  Future call({required String email, required String password});
 }
