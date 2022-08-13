@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:value_listenable_test/value_listenable_test.dart';
 
-import 'mocks/mocks.dart';
+import '../../mocks/mocks.dart';
+
 
 void main() {
   late SignInSpy signInSpy;

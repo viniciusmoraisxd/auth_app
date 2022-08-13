@@ -9,9 +9,10 @@ class SignInController extends ValueNotifier<SignInState> {
 
   SignInController({required this.signIn}) : super(SignInInitial());
 
-  Future<void> call({required String email, required String password}) async {
+  Future<void>? call({required String email, required String password}) async {
+    value = SignInLoading();
+
     try {
-      value = SignInLoading();
       await signIn.call(email: email, password: password);
 
       value = SignInSuccess();

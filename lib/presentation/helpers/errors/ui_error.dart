@@ -34,7 +34,7 @@ extension UIErrorExtension on UIError {
         return "Senha fraca.";
 
       default:
-        return "Algo de errado aconteceu!";
+        return "Algo errado aconteceu. Tente novamente em breve!";
     }
   }
 }

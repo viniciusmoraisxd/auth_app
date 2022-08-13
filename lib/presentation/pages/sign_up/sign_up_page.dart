@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    controller.dispose();
+    // controller.dispose();
     super.dispose();
   }
 

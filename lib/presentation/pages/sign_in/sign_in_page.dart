@@ -31,7 +31,7 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
 
   @override
   void dispose() {
-    controller.dispose();
+    // controller.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                                 ? null
                                 : () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await controller.call(
+                                      await controller(
                                           email: emailController.text,
                                           password: passwordController.text);
                                     }
@@ -103,10 +103,12 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                               children: [
                                 // const SizedBox(height: 6),
                                 GestureDetector(
+                                  key: const Key("signupButton"),
                                   onTap: () {
                                     Navigator.of(context).pushNamed("/signup");
                                   },
                                   child: RichText(
+                                    key: const Key("Registre-se"),
                                     text: TextSpan(
                                         text: 'Não tem uma conta?',
                                         style: TextStyle(
