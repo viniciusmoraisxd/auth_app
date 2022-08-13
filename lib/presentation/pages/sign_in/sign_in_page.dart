@@ -9,14 +9,14 @@ import '../../controllers/sign_in/sign_in.dart';
 import '../../helpers/mixins/mixins.dart';
 import 'widgets/widgets.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with UIErrorManager {
+class _SignInPageState extends State<SignInPage> with UIErrorManager {
   late SignInController controller;
 
   final TextEditingController emailController = TextEditingController();

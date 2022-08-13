@@ -6,16 +6,15 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/login':
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(builder: (_) => const SignInPage());
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case '/forgot_password':
         return MaterialPageRoute(builder: (_) => const ForgotPassword());
       case '/home':
         return MaterialPageRoute(builder: (_) => const HomePage());
-
       default:
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(builder: (_) => const SignInPage());
     }
   }
 }
