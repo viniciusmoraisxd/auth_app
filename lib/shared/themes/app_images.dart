@@ -1,3 +1,4 @@
+// coverage:ignore-file
 class AppImages {
   static const mobileLogin = "$path/mobile_login.svg";
   static const login = "$path/login.svg";

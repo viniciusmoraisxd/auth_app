@@ -3,7 +3,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../shared/themes/themes.dart';
 import '../../../../shared/widgets/widgets.dart';
-import '../../../helpers/validators/validators.dart';
+import '../../../helpers/helpers.dart';
 
 class FormContainerWidget extends StatefulWidget {
   final double height;
@@ -29,7 +29,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
       children: [
         CustomTextFormField(
           controller: widget.emailController,
-          label: "E-mail",
+          label:  R.strings.email,
           textInputType: TextInputType.emailAddress,
           prefix: const Icon(Icons.mail_outline),
           validator: (String? value) =>
@@ -43,7 +43,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           prefix: const Icon(
             Icons.lock_outline,
           ),
-          label: "Password",
+          label:  R.strings.password,
           obscureText: obscurePassword,
           validator: (String? value) =>
               InputValidators.requiredFieldValidator(value: value),
@@ -64,7 +64,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
             margin: const EdgeInsets.only(top: 16),
             alignment: Alignment.centerRight,
             child: Text(
-              "Esqueceu a senha?",
+               R.strings.forgotPassword,
               style: TextStyle(
                   color: AppColors.primaryColor,
                   fontSize: 12,

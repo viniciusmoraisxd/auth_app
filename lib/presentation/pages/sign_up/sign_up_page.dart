@@ -95,9 +95,9 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                                 ? const CircularProgressIndicator(
                                     color: AppColors.white,
                                   )
-                                : const Text(
-                                    "Registrar",
-                                    style: TextStyle(
+                                : Text(
+                                    R.strings.signup,
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       fontFamily: "Gotham-SSm",
                                     ),
@@ -120,14 +120,14 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                                   child: RichText(
                                     key: const Key("Logar"),
                                     text: TextSpan(
-                                        text: 'Já tem uma conta?',
+                                        text: R.strings.haveAccount,
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: AppColors.primaryColor,
                                             fontFamily: "Gotham-SSm"),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: ' Logar',
+                                              text: ' ${R.strings.login}',
                                               style: TextStyle(
                                                   color: AppColors.primaryColor,
                                                   fontSize: 12,

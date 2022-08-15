@@ -1,3 +1,4 @@
+import 'package:auth_app/presentation/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -22,13 +23,13 @@ class HeaderWidget extends StatelessWidget {
             key: const Key("signInAsset"),
             AppImages.login,
             height: height * 0.35,
-            // color: Colors.amber,
           ),
           Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
-                "Login",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              child: Text(
+                R.strings.login,
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ))
         ],
       ),

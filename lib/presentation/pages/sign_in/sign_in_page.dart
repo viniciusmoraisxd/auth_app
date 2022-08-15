@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../shared/themes/themes.dart';
 import '../../controllers/sign_in/sign_in.dart';
-import '../../helpers/mixins/mixins.dart';
+import '../../helpers/helpers.dart';
 import 'widgets/widgets.dart';
 
 class SignInPage extends StatefulWidget {
@@ -88,9 +88,9 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                                 ? const CircularProgressIndicator(
                                     color: AppColors.white,
                                   )
-                                : const Text(
-                                    "Logar",
-                                    style: TextStyle(
+                                : Text(
+                                    R.strings.enter,
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       fontFamily: "Gotham-SSm",
                                     ),
@@ -110,14 +110,14 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                                   child: RichText(
                                     key: const Key("Registre-se"),
                                     text: TextSpan(
-                                        text: 'Não tem uma conta?',
+                                        text: R.strings.dontHaveAccount,
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: AppColors.primaryColor,
                                             fontFamily: "Gotham-SSm"),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: ' Registre-se',
+                                              text: " ${R.strings.addAccount}",
                                               style: TextStyle(
                                                   color: AppColors.primaryColor,
                                                   fontSize: 12,

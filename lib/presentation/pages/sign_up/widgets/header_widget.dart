@@ -1,3 +1,4 @@
+import 'package:auth_app/presentation/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,9 +27,9 @@ class HeaderWidget extends StatelessWidget {
           ),
           Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
-                "Registre-se",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              child: Text(
+                R.strings.addAccount,
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ))
         ],
       ),

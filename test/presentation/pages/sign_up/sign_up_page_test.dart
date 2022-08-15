@@ -50,11 +50,11 @@ void main() {
     await tester.pumpWidget(loadPage());
     expect(find.byKey(const Key("signUpAsset")), findsOneWidget);
 
-    expect(find.text('Registre-se'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, 'Seu nome completo'),
+    expect(find.text('Criar conta'), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'Seu nome'),
         findsOneWidget);
-    expect(find.widgetWithText(TextFormField, 'Seu e-mail'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, 'Sua senha'), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'E-mail'), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'Senha'), findsOneWidget);
     expect(
         find.widgetWithText(TextFormField, 'Repita sua senha'), findsOneWidget);
     expect(find.widgetWithText(ElevatedButton, 'Registrar'), findsOneWidget);
@@ -66,11 +66,11 @@ void main() {
     await tester.pumpWidget(loadPage());
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
 
@@ -85,10 +85,10 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), '');
+        find.widgetWithText(TextFormField, 'Seu nome'), '');
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), '');
-    await tester.enterText(find.widgetWithText(TextFormField, 'Sua senha'), '');
+        find.widgetWithText(TextFormField, 'E-mail'), '');
+    await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '');
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), '');
     await tester.tap(find.widgetWithText(ElevatedButton, 'Registrar'));
@@ -101,7 +101,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), 'invalid_email');
+        find.widgetWithText(TextFormField, 'E-mail'), 'invalid_email');
     await tester.pump();
 
     expect(find.text('E-mail inválido'), findsOneWidget);
@@ -111,7 +111,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), 'any_password');
     await tester.pump();
@@ -123,11 +123,11 @@ void main() {
     await tester.pumpWidget(loadPage());
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
@@ -140,11 +140,11 @@ void main() {
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
@@ -173,26 +173,26 @@ void main() {
     signUpSpy.mockSignUpResponseError(DomainError.emailInUse);
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
     await tester.tap(find.widgetWithText(ElevatedButton, 'Registrar'));
 
-    expect(find.text("O e-mail já está em uso."), findsNothing);
+    expect(find.text("O e-mail já está em uso"), findsNothing);
 
     await tester.pump(const Duration(milliseconds: 500)); //começa a animação
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("O e-mail já está em uso."), findsOneWidget);
+    expect(find.text("O e-mail já está em uso"), findsOneWidget);
 
     await tester.pumpAndSettle(const Duration(seconds: 5));
 
-    expect(find.text("O e-mail já está em uso."), findsNothing);
+    expect(find.text("O e-mail já está em uso"), findsNothing);
   });
 
   testWidgets('Should present InvalidEmailError', (WidgetTester tester) async {
@@ -201,26 +201,26 @@ void main() {
     signUpSpy.mockSignUpResponseError(DomainError.invalidEmail);
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
     await tester.tap(find.widgetWithText(ElevatedButton, 'Registrar'));
 
-    expect(find.text("Campo inválido."), findsNothing);
+    expect(find.text("Campo inválido"), findsNothing);
 
     await tester.pump(const Duration(milliseconds: 500)); //começa a animação
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("Campo inválido."), findsOneWidget);
+    expect(find.text("Campo inválido"), findsOneWidget);
 
     await tester.pumpAndSettle(const Duration(seconds: 5));
 
-    expect(find.text("Campo inválido."), findsNothing);
+    expect(find.text("Campo inválido"), findsNothing);
   });
 
   testWidgets('Should present userDisabledError', (WidgetTester tester) async {
@@ -229,26 +229,26 @@ void main() {
     signUpSpy.mockSignUpResponseError(DomainError.userDisabled);
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
     await tester.tap(find.widgetWithText(ElevatedButton, 'Registrar'));
 
-    expect(find.text("Este usuário está desabilitado."), findsNothing);
+    expect(find.text("Este usuário está desabilitado"), findsNothing);
 
     await tester.pump(const Duration(milliseconds: 500)); //começa a animação
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("Este usuário está desabilitado."), findsOneWidget);
+    expect(find.text("Este usuário está desabilitado"), findsOneWidget);
 
     await tester.pumpAndSettle(const Duration(seconds: 5));
 
-    expect(find.text("Este usuário está desabilitado."), findsNothing);
+    expect(find.text("Este usuário está desabilitado"), findsNothing);
   });
 
   testWidgets('Should present weakPasswordError', (WidgetTester tester) async {
@@ -257,26 +257,26 @@ void main() {
     signUpSpy.mockSignUpResponseError(DomainError.weakPassword);
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);
     await tester.tap(find.widgetWithText(ElevatedButton, 'Registrar'));
 
-    expect(find.text("Senha fraca."), findsNothing);
+    expect(find.text("Senha fraca"), findsNothing);
 
     await tester.pump(const Duration(milliseconds: 500)); //começa a animação
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("Senha fraca."), findsOneWidget);
+    expect(find.text("Senha fraca"), findsOneWidget);
 
     await tester.pumpAndSettle(const Duration(seconds: 5));
 
-    expect(find.text("Senha fraca."), findsNothing);
+    expect(find.text("Senha fraca"), findsNothing);
   });
 
   testWidgets('Should present UnexpectedError', (WidgetTester tester) async {
@@ -285,11 +285,11 @@ void main() {
     signUpSpy.mockSignUpResponseError(DomainError.unexpected);
 
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome completo'), name);
+        find.widgetWithText(TextFormField, 'Seu nome'), name);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu e-mail'), email);
+        find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Sua senha'), password);
+        find.widgetWithText(TextFormField, 'Senha'), password);
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), password);

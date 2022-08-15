@@ -1,8 +1,8 @@
+import 'package:auth_app/presentation/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../shared/widgets/widgets.dart';
-import '../../../helpers/validators/validators.dart';
 
 class FormContainerWidget extends StatefulWidget {
   final double height;
@@ -29,7 +29,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     return Column(
       children: [
         CustomTextFormField(
-          label: "Seu nome completo",
+          label: R.strings.name,
           textInputType: TextInputType.name,
           prefix: const Icon(Icons.person_outline),
           validator: (String? value) =>
@@ -40,7 +40,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         ),
         CustomTextFormField(
           controller: widget.emailController,
-          label: "Seu e-mail",
+          label: R.strings.email,
           textInputType: TextInputType.emailAddress,
           prefix: const Icon(Icons.mail_outline),
           validator: (String? value) =>
@@ -54,7 +54,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           prefix: const Icon(
             Icons.lock_outline,
           ),
-          label: "Sua senha",
+          label: R.strings.password,
           obscureText: obscurePassword,
           validator: (String? value) =>
               InputValidators.requiredFieldValidator(value: value),
@@ -74,10 +74,9 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           prefix: const Icon(
             Icons.lock_outline,
           ),
-          label: "Repita sua senha",
+          label: R.strings.repeatPassword,
           obscureText: obscurePassword,
-          validator: (String? value) =>
-             InputValidators.compareFieldsValidator(
+          validator: (String? value) => InputValidators.compareFieldsValidator(
               fieldToCompare: widget.passwordController.text, field: value),
           suffix: IconButton(
             icon: Icon(obscurePassword ? Ionicons.eye_off : Ionicons.eye),

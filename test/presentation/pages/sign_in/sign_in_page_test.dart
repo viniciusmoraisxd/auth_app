@@ -53,9 +53,9 @@ void main() {
     expect(find.byKey(const Key("signInAsset")), findsOneWidget);
     expect(find.text('Login'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'E-mail'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, 'Password'), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'Senha'), findsOneWidget);
     expect(find.text('Esqueceu a senha?'), findsOneWidget);
-    expect(find.widgetWithText(ElevatedButton, 'Logar'), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, 'Entrar'), findsOneWidget);
     expect(find.byKey(const Key("Registre-se")), findsOneWidget);
   });
 
@@ -64,9 +64,8 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), '1234');
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+    await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '1234');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
     expect(find.text('Campo obrigatório'), findsNothing);
@@ -77,8 +76,8 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), '');
-    await tester.enterText(find.widgetWithText(TextFormField, 'Password'), '');
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+    await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
     await tester.pump();
 
     expect(find.text('Campo obrigatório'), findsNWidgets(2));
@@ -107,9 +106,8 @@ void main() {
   testWidgets('Should present error if password is empty',
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), '1234');
-    await tester.enterText(find.widgetWithText(TextFormField, 'Password'), '');
+    await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '1234');
+    await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '');
     await tester.pump();
 
     expect(find.text('Campo obrigatório'), findsOneWidget);
@@ -119,8 +117,8 @@ void main() {
     await tester.pumpWidget(loadPage());
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), password);
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+        find.widgetWithText(TextFormField, 'Senha'), password);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
     verify(() => signInSpy(email: email, password: password)).called(1);
@@ -130,8 +128,8 @@ void main() {
     await tester.pumpWidget(loadPage());
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), password);
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+        find.widgetWithText(TextFormField, 'Senha'), password);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
     await tester.pump(const Duration(milliseconds: 500));
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -158,19 +156,19 @@ void main() {
 
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), password);
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+        find.widgetWithText(TextFormField, 'Senha'), password);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
 
-    expect(find.text("Credenciais inválidas."), findsNothing);
+    expect(find.text("Credenciais inválidas"), findsNothing);
 
     await tester.pump(const Duration(milliseconds: 500)); //começa a animação
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("Credenciais inválidas."), findsOneWidget);
+    expect(find.text("Credenciais inválidas"), findsOneWidget);
 
     await tester.pumpAndSettle(const Duration(seconds: 5));
 
-    expect(find.text("Credenciais inválidas."), findsNothing);
+    expect(find.text("Credenciais inválidas"), findsNothing);
   });
 
   testWidgets('Should present UnexpectedError', (WidgetTester tester) async {
@@ -180,8 +178,8 @@ void main() {
 
     await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Password'), password);
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Logar'));
+        find.widgetWithText(TextFormField, 'Senha'), password);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
 
     expect(find.text("Algo inesperado aconteceu. Tente novamente em breve!"),
         findsNothing);

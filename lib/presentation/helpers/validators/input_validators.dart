@@ -1,6 +1,8 @@
+import '../helpers.dart';
+
 class InputValidators {
   static String? requiredFieldValidator({String? value}) {
-    return value?.isNotEmpty == true ? null : "Campo obrigatório";
+    return value?.isNotEmpty == true ? null :  R.strings.msgRequiredField;
   }
 
   static String? emailFieldValidator({String? email}) {
@@ -12,7 +14,7 @@ class InputValidators {
         r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
     final isValid = email?.isNotEmpty != true || regex.hasMatch(email!);
-    return isValid ? null : "E-mail inválido";
+    return isValid ? null :  R.strings.msgInvalidEmail;
   }
 
   static String? compareFieldsValidator(
@@ -26,6 +28,6 @@ class InputValidators {
     }
 
     final isValid = field == fieldToCompare;
-    return isValid ? null : "Campo inválido";
+    return isValid ? null :  R.strings.msgInvalidField;
   }
 }

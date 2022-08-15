@@ -1,3 +1,5 @@
+import 'package:auth_app/presentation/helpers/i18n/i18n.dart';
+
 enum UIError {
   requiredField,
   invalidField,
@@ -13,28 +15,28 @@ extension UIErrorExtension on UIError {
   String get description {
     switch (this) {
       case UIError.requiredField:
-        return "Campo obrigatório.";
+        return R.strings.msgRequiredField;
 
       case UIError.invalidField:
-        return "Campo inválido.";
+        return R.strings.msgInvalidField;
 
       case UIError.invalidCredentials:
-        return "Credenciais inválidas.";
+        return R.strings.msgInvalidCredentials;
 
       case UIError.emailInUse:
-        return "O e-mail já está em uso.";
+        return R.strings.msgEmailInUse;
 
       case UIError.userDisabled:
-        return "Este usuário está desabilitado.";
+        return R.strings.msgUserDisabled;
 
       case UIError.userNotFound:
-        return "Usuário não encontrado.";
+        return R.strings.msgUserNotFound;
 
       case UIError.weakPassword:
-        return "Senha fraca.";
+        return R.strings.msgWeakPassword;
 
       default:
-        return "Algo errado aconteceu. Tente novamente em breve!";
+        return R.strings.msgUnexpectedError;
     }
   }
 }
