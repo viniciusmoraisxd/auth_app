@@ -1,4 +1,5 @@
 import 'package:auth_app/presentation/controllers/sign_up/sign_up.dart';
+import 'package:auth_app/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +54,12 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
               key: _formKey,
               child: Column(
                 children: [
-                  HeaderWidget(height: constraints.maxHeight),
+                  HeaderWidget(
+                    height: constraints.maxHeight,
+                    assetKey: 'signUpAsset',
+                    image: AppImages.signUp,
+                    title: R.strings.addAccount,
+                  ),
                   FormContainerWidget(
                     height: constraints.maxHeight,
                     emailController: emailController,

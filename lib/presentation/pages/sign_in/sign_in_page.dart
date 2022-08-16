@@ -1,3 +1,4 @@
+import 'package:auth_app/shared/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -51,7 +52,13 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
               key: _formKey,
               child: Column(
                 children: [
-                  HeaderWidget(height: constraints.maxHeight),
+                  // HeaderWidget(height: constraints.maxHeight),
+                  HeaderWidget(
+                    height: constraints.maxHeight,
+                    image: AppImages.login,
+                    title: R.strings.login,
+                    assetKey: "signInAsset",
+                  ),
                   FormContainerWidget(
                       height: constraints.maxHeight,
                       emailController: emailController,

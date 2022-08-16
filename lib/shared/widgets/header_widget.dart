@@ -1,14 +1,17 @@
-import 'package:auth_app/presentation/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../shared/themes/themes.dart';
-
 class HeaderWidget extends StatelessWidget {
   final double height;
+  final String image;
+  final String title;
+  final String assetKey;
   const HeaderWidget({
     Key? key,
     required this.height,
+    required this.image,
+    required this.title,
+    required this.assetKey,
   }) : super(key: key);
 
   @override
@@ -20,16 +23,16 @@ class HeaderWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            key: const Key("signUpAsset"),
-            AppImages.signUp,
+            key: Key(assetKey),
+            image,
             height: height * 0.35,
-            // color: Colors.amber,
           ),
           Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                R.strings.addAccount,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                title,
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ))
         ],
       ),
