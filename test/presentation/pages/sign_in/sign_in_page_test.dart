@@ -16,6 +16,7 @@ class SignUpSpy extends Mock implements SignUp {}
 void main() {
   late SignInSpy signInSpy;
   late SignUpSpy signUpSpy;
+  late AddUserSpy addUserSpy;
   late SignInController signInController;
   late SignUpController signUpController;
   late String email;
@@ -24,8 +25,9 @@ void main() {
   setUp(() {
     signInSpy = SignInSpy();
     signUpSpy = SignUpSpy();
+    addUserSpy = AddUserSpy();
     signInController = SignInController(signIn: signInSpy);
-    signUpController = SignUpController(signUp: signUpSpy);
+    signUpController = SignUpController(signUp: signUpSpy, addUser: addUserSpy);
 
     email = faker.internet.email();
     password = faker.internet.password();

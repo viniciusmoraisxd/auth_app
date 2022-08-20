@@ -1,3 +1,4 @@
+import 'package:auth_app/domain/entities/entities.dart';
 import 'package:auth_app/domain/helpers/helpers.dart';
 import 'package:auth_app/presentation/controllers/controllers.dart';
 import 'package:auth_app/presentation/helpers/helpers.dart';
@@ -11,23 +12,33 @@ import '../../mocks/mocks.dart';
 
 void main() {
   late SignUpSpy signUpSpy;
+  late AddUserSpy addUserSpy;
   late SignUpController sut;
   late String email;
   late String password;
+  late UserEntity userEntity;
 
   setUp(() {
     signUpSpy = SignUpSpy();
-    sut = SignUpController(signUp: signUpSpy);
+    addUserSpy = AddUserSpy();
+    sut = SignUpController(signUp: signUpSpy, addUser: addUserSpy);
     email = faker.internet.email();
     password = faker.internet.password();
+    userEntity = makeUser();
 
     signUpSpy.mockSignUpResponse();
+    addUserSpy.mockAddUserResponse();
   });
 
-  test('Should call SignUp with correct values', () async {
-    await sut(email: email, password: password);
+  setUpAll(() {
+    registerFallbackValue(makeUser());
+  });
+
+  test('Should call SignUp and AddUser with correct values', () async {
+    await sut(email: email, password: password, userEntity: userEntity);
 
     verify(() => signUpSpy(email: email, password: password));
+    verify(() => addUserSpy(userEntity: userEntity));
   });
 
   test('Should emit correct states on success', () async {
@@ -39,7 +50,7 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    await sut(email: email, password: password);
+    await sut(email: email, password: password, userEntity: userEntity);
   });
 
   test('Should emit emailInUseError if SignUp throws emailInUse', () async {
@@ -54,7 +65,7 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    sut(email: email, password: password);
+    sut(email: email, password: password, userEntity: userEntity);
   });
 
   test('Should emit invalidEmailError if SignUp throws invalidEmail', () async {
@@ -69,7 +80,7 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    sut(email: email, password: password);
+    sut(email: email, password: password, userEntity: userEntity);
   });
 
   test('Should emit userDisabledError if SignUp throws userDisabled', () async {
@@ -84,7 +95,7 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    sut(email: email, password: password);
+    sut(email: email, password: password, userEntity: userEntity);
   });
 
   test('Should emit weakPasswordError if SignUp throws weakPassword', () async {
@@ -99,7 +110,7 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    sut(email: email, password: password);
+    sut(email: email, password: password, userEntity: userEntity);
   });
 
   test('Should emit UIIUnexpectedError if SignUp throws unexpected', () async {
@@ -114,6 +125,6 @@ void main() {
           isA<SignUpInitial>(),
         ]));
 
-    sut(email: email, password: password);
+    sut(email: email, password: password, userEntity: userEntity);
   });
 }

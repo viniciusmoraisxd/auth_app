@@ -1,26 +1,32 @@
+import 'package:auth_app/domain/entities/entities.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/helpers/helpers.dart';
-import '../../../domain/usecases/sign_up.dart';
+import '../../../domain/usecases/usecases.dart';
 import '../../helpers/helpers.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpController extends ValueNotifier<SignUpState> {
   final SignUp signUp;
+  final AddUser addUser;
 
   SignUpController({
     required this.signUp,
+    required this.addUser,
   }) : super(SignUpInitial());
 
-  Future<void> call({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> call(
+      {required String email,
+      required String password,
+      required UserEntity userEntity}) async {
     value = SignUpLoading();
 
     try {
       await signUp(email: email, password: password);
+
+      await addUser(userEntity: userEntity);
+
       value = SignUpSuccess();
     } on DomainError catch (e) {
       switch (e) {

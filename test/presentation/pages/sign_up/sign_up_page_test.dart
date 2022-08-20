@@ -13,6 +13,8 @@ import '../../mocks/mocks.dart';
 void main() {
   late SignInSpy signInSpy;
   late SignUpSpy signUpSpy;
+  late AddUserSpy addUserSpy;
+
   late SignInController signInController;
   late SignUpController signUpController;
   late String name;
@@ -22,8 +24,10 @@ void main() {
   setUp(() {
     signInSpy = SignInSpy();
     signUpSpy = SignUpSpy();
+    addUserSpy = AddUserSpy();
+
     signInController = SignInController(signIn: signInSpy);
-    signUpController = SignUpController(signUp: signUpSpy);
+    signUpController = SignUpController(signUp: signUpSpy, addUser: addUserSpy);
 
     name = faker.person.name();
     email = faker.internet.email();
@@ -51,8 +55,7 @@ void main() {
     expect(find.byKey(const Key("signUpAsset")), findsOneWidget);
 
     expect(find.text('Criar conta'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, 'Seu nome'),
-        findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'Seu nome'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'E-mail'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, 'Senha'), findsOneWidget);
     expect(
@@ -67,8 +70,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
     await tester.enterText(
@@ -84,10 +86,8 @@ void main() {
   testWidgets('Should present RequiredField if TextFormFields are empty',
       (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'Seu nome'), '');
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), '');
+    await tester.enterText(find.widgetWithText(TextFormField, 'Seu nome'), '');
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), '');
     await tester.enterText(find.widgetWithText(TextFormField, 'Senha'), '');
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Repita sua senha'), '');
@@ -124,8 +124,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -141,8 +140,7 @@ void main() {
     await tester.pumpWidget(loadPage());
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -174,8 +172,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -202,8 +199,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -230,8 +226,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -258,8 +253,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 
@@ -286,8 +280,7 @@ void main() {
 
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Seu nome'), name);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'E-mail'), email);
+    await tester.enterText(find.widgetWithText(TextFormField, 'E-mail'), email);
     await tester.enterText(
         find.widgetWithText(TextFormField, 'Senha'), password);
 

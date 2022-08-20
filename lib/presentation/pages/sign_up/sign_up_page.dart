@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../domain/entities/entities.dart';
 import '../../../shared/themes/themes.dart';
 import '../../helpers/helpers.dart';
 import 'widgets/widgets.dart';
@@ -20,6 +21,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
   late SignUpController controller;
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmationPasswordController =
@@ -63,6 +65,7 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                   FormContainerWidget(
                     height: constraints.maxHeight,
                     emailController: emailController,
+                    nameController: nameController,
                     passwordController: passwordController,
                     confirmationPasswordController:
                         confirmationPasswordController,
@@ -92,9 +95,13 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                                 ? null
                                 : () async {
                                     if (_formKey.currentState!.validate()) {
+                                      final user = UserEntity(
+                                          name: nameController.text.trim());
+
                                       await controller(
                                           email: emailController.text,
-                                          password: passwordController.text);
+                                          password: passwordController.text,
+                                          userEntity: user);
                                     }
                                   },
                             child: value is SignUpLoading

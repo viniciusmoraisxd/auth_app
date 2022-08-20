@@ -37,7 +37,8 @@ dependencies:
   mocktail: ^0.3.0
   faker:
   firebase_auth: 
-  firebase_core: 
+  firebase_core: ^1.20.0
+  cloud_firestore: ^3.4.4
   ionicons: ^0.1.2
   overlay_support: ^2.0.0
   flutter_svg: ^1.1.0

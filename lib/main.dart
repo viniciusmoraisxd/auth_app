@@ -1,3 +1,4 @@
+import 'package:auth_app/data/usecases/remote_add_user.dart';
 import 'package:auth_app/data/usecases/usecases.dart';
 import 'package:auth_app/presentation/controllers/sign_in/sign_in.dart';
 import 'package:auth_app/presentation/controllers/sign_up/sign_up.dart';
@@ -19,7 +20,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
   runApp(const MyApp());
 }
 
@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-      // R.load(const Locale('pt', 'BR'));
+    // R.load(const Locale('pt', 'BR'));
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -38,6 +37,7 @@ class MyApp extends StatelessWidget {
         Provider(
             create: (_) =>
                 FirebaseAuthAdapter(firebaseAuth: FirebaseAuth.instance)),
+        Provider(create: (_) => FirebaseDatabaseAdapter()),
         Provider(
             create: (context) => RemoteSignIn(
                 firebaseAuthClient: context.read<FirebaseAuthAdapter>())),
@@ -47,9 +47,13 @@ class MyApp extends StatelessWidget {
         Provider(
             create: (context) => RemoteSignUp(
                 firebaseAuthClient: context.read<FirebaseAuthAdapter>())),
+        Provider(
+            create: (context) => RemoteAddUser(
+                databaseClient: context.read<FirebaseDatabaseAdapter>())),
         ChangeNotifierProvider(
-            create: (context) =>
-                SignUpController(signUp: context.read<RemoteSignUp>()))
+            create: (context) => SignUpController(
+                signUp: context.read<RemoteSignUp>(),
+                addUser: context.read<RemoteAddUser>()))
       ],
       child: OverlaySupport.global(
         child: MaterialApp(

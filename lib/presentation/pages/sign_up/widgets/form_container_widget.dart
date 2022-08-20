@@ -6,6 +6,7 @@ import '../../../../shared/widgets/widgets.dart';
 
 class FormContainerWidget extends StatefulWidget {
   final double height;
+  final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmationPasswordController;
@@ -15,6 +16,7 @@ class FormContainerWidget extends StatefulWidget {
     required this.emailController,
     required this.passwordController,
     required this.confirmationPasswordController,
+    required this.nameController,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     return Column(
       children: [
         CustomTextFormField(
+          controller: widget.nameController,
           label: R.strings.name,
           textInputType: TextInputType.name,
           prefix: const Icon(Icons.person_outline),
