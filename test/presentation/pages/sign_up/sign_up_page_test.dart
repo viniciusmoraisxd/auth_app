@@ -34,6 +34,11 @@ void main() {
     password = faker.internet.password();
 
     signUpSpy.mockSignUpResponse();
+    addUserSpy.mockAddUserResponse();
+  });
+
+  setUpAll(() {
+    registerFallbackValue(makeUser());
   });
 
   loadPage() {
@@ -155,15 +160,6 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
-
-  // testWidgets('Should go to signIn page', (WidgetTester tester) async {
-  //   await tester.pumpWidget(loadPage());
-  //   await tester.tap(find.byKey(const Key("signInButton")));
-  //   await tester.pumpAndSettle(const Duration(seconds: 1));
-
-  //   expect(find.byType(SignUpPage), findsNothing);
-  //   expect(find.byType(SignInPage), findsOneWidget);
-  // });
 
   testWidgets('Should present EmailInUseError', (WidgetTester tester) async {
     await tester.pumpWidget(loadPage());

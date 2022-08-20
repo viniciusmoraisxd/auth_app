@@ -1,8 +1,7 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../data/firebase/firebase_database_client.dart';
+import '../../data/firebase/firebase.dart';
 import '../../domain/helpers/helpers.dart';
 
 class FirebaseDatabaseAdapter implements FirebaseDatabaseClient {
@@ -25,12 +24,10 @@ class FirebaseDatabaseAdapter implements FirebaseDatabaseClient {
             .add(json)
             .timeout(const Duration(seconds: 5));
       } else {
-        throw DomainError.accessDenied;
-
-        // Criar Errors no data
+        throw FirebaseDatabaseError.accessDenied;
       }
     } on FirebaseException {
-      throw DomainError.unexpected;
+      throw FirebaseDatabaseError.unexpected;
     }
   }
 

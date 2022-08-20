@@ -1,0 +1,3 @@
+enum FirebaseDatabaseError{
+  accessDenied, unexpected
+}
