@@ -8,7 +8,6 @@ import 'package:integration_test/integration_test.dart';
 
 import 'package:auth_app/main.dart';
 
-// import 'package:auth_app/presentation/pages/sign_in/sign_in_page.dart' as singIn;
 Future<void> addDelay(int seconds) async {
   await Future<void>.delayed(Duration(seconds: seconds));
 }
@@ -54,13 +53,11 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Login'), findsOneWidget);
-
       await tester.enterText(
           find.widgetWithText(TextFormField, 'E-mail'), email);
       await tester.enterText(
           find.widgetWithText(TextFormField, 'Senha'), 'invalid_password');
       await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
-
       await tester.pumpAndSettle();
 
       expect(find.text("Credenciais inválidas"), findsOneWidget);
@@ -72,14 +69,11 @@ void main() {
 
       expect(find.text('Login'), findsOneWidget);
 
-      // Emulate a tap on the floating action button.
       await tester.enterText(
           find.widgetWithText(TextFormField, 'E-mail'), faker.internet.email());
       await tester.enterText(
           find.widgetWithText(TextFormField, 'Senha'), password);
       await tester.tap(find.widgetWithText(ElevatedButton, 'Entrar'));
-      addDelay(5000);
-      // Trigger a frame.
       await tester.pumpAndSettle();
 
       expect(find.text("Usuário não encontrado"), findsOneWidget);

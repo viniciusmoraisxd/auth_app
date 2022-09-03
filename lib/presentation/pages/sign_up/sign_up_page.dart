@@ -121,8 +121,6 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
                                 vertical: constraints.maxHeight * 0.04),
                             child: Column(
                               children: [
-                                // const SizedBox(height: 6),
-
                                 GestureDetector(
                                   key: const Key("signInButton"),
                                   onTap: () {
