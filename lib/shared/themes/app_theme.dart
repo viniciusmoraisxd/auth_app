@@ -1,12 +1,10 @@
-// coverage:ignore-file
-
 import 'package:flutter/material.dart';
 
 import 'app_color.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
-    fontFamily:"Gotham-SSm",
+      fontFamily: "Gotham-SSm",
       useMaterial3: false,
       primarySwatch: AppColors.primaryCustomColor,
       appBarTheme: AppBarTheme(

@@ -4,7 +4,6 @@ import 'package:auth_app/shared/themes/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -31,15 +30,13 @@ class MyApp extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark));
     return MultiProvider(
       providers: Injector(context: context).providers(),
-      child: OverlaySupport.global(
-        child: MaterialApp(
-          theme: AppTheme.lightTheme,
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Auth Demo',
-          initialRoute: "/sign_in",
-          home: const SignInPage(),
-          onGenerateRoute: RouteGenerator.generateRoute,
-        ),
+      child: MaterialApp(
+        theme: AppTheme.lightTheme,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Auth Demo',
+        initialRoute: "/sign_in",
+        home: const SignInPage(),
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
   }
