@@ -24,7 +24,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          primary: AppColors.primaryColor,
+          backgroundColor: AppColors.primaryColor,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -41,7 +41,7 @@ class AppTheme {
           side: BorderSide(
             color: AppColors.primaryColor,
           ),
-          primary: AppColors.primaryColor,
+          backgroundColor: AppColors.primaryColor,
         ),
       ));
 }
