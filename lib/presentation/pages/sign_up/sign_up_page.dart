@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> with UIErrorManager {
 
   @override
   void dispose() {
-    // controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 

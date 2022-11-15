@@ -26,13 +26,13 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
 
   @override
   void initState() {
-    controller = context.read<SignInController>();
+    controller = context.read<SignInController>();   
     super.initState();
   }
 
   @override
   void dispose() {
-    // controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -91,6 +91,7 @@ class _SignInPageState extends State<SignInPage> with UIErrorManager {
                                           password: passwordController.text);
                                     }
                                   },
+                                  
                             child: value is SignInLoading
                                 ? const CircularProgressIndicator(
                                     color: AppColors.white,
